@@ -2,7 +2,6 @@ package com.example.location_basedencryption;
 
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -51,7 +50,7 @@ public class CipherLocationListener implements LocationListener {
         double latitude = location.getLatitude();
 
         return String.format("%.4f", longitude)
-                + ','
+                + ", "
                 + String.format("%.4f", latitude);
     }
 
@@ -60,7 +59,7 @@ public class CipherLocationListener implements LocationListener {
         double altitude = location.getAltitude();
 
         return getLocationString(location)
-                + ','
+                + ", "
                 + String.format("%.4f", altitude);
     }
 }

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Location-Based Encryption</string>
+    <string name="search_hint">Enter file name</string>
+    <string name="encrypt_title">Encrypt file</string>
+    <string name="encrypt">Encrypt</string>
+    <string name="decrypt_title">Decrypt file</string>
+    <string name="decrypt">Decrypt</string>
+    <string name="cancel">Cancel</string>
 </resources>

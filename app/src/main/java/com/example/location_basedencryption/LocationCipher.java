@@ -1,47 +1,24 @@
 package com.example.location_basedencryption;
 
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Environment;
-import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyProperties;
-import android.text.style.TabStopSpan;
-import android.util.Base64;
 import android.util.Log;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidParameterSpecException;
-import java.security.spec.KeySpec;
 import java.util.Arrays;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.CipherOutputStream;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class LocationCipher {
     private final String ENCRYPTION = "AES/ECB/PKCS5Padding";
-    private final String ENCRYIPTION_DIR = Environment.getExternalStorageDirectory() + File.separator + "encryption";
-    private final String EXTENSION = ".enc";
+    private final String ENCRYPTION_DIR = Environment.getExternalStorageDirectory() + File.separator + "encryption";
+
+    public static final String EXTENSION = ".enc";
 
     private CipherLocationListener mLocationListener;
 
@@ -75,7 +52,13 @@ public class LocationCipher {
 
         byte[] outputBytes = cipher.doFinal(inputBytes);
 
-        File outputFile = new File(ENCRYIPTION_DIR + File.separator + file.getName() + EXTENSION);
+        File dir = new File(ENCRYPTION_DIR);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        //File outputFile = new File(ENCRYPTION_DIR + File.separator + file.getName() + EXTENSION);
+        File outputFile = new File(dir, file.getName() + LocationCipher.EXTENSION);
         FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
 
         fileOutputStream.write(outputBytes);
@@ -102,7 +85,10 @@ public class LocationCipher {
 
         byte[] outputBytes = cipher.doFinal(inputBytes);
 
-        File outputFile = new File( ENCRYIPTION_DIR + File.separator + file.getName().replace(".enc", ""));
+        File outputFile = new File( ENCRYPTION_DIR + File.separator + file
+                .getName()
+                .replace(LocationCipher.EXTENSION, ""));
+
         FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
 
         fileOutputStream.write(outputBytes);
