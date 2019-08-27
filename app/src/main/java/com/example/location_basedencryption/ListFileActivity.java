@@ -86,7 +86,7 @@ public class ListFileActivity extends ListActivity implements TextWatcher {
                     showToast("Invalid location.");
 
                 } catch (Exception e) {
-                    showToast("Cannot decrypt due to unknown error.");
+                    showToast("Cannot encrypt due to unknown error.");
 
                     e.printStackTrace();
                 }
@@ -139,6 +139,8 @@ public class ListFileActivity extends ListActivity implements TextWatcher {
 
                 } catch (BadPaddingException e) {
                     showToast("Invalid location.");
+
+                    e.printStackTrace();
 
                 } catch (Exception e) {
                     showToast("Cannot decrypt due to unknown error.");
